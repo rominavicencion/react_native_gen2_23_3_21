@@ -7,9 +7,8 @@
  */
 
 import React from 'react';
-import type { Node } from 'react';
+import type {Node} from 'react';
 import {
-  FlatList,
   SafeAreaView,
   ScrollView,
   StatusBar,
@@ -27,7 +26,7 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-const Section = ({ children, title }) => {
+const Section = ({children, title}): Node => {
   const isDarkMode = useColorScheme() === 'dark';
   return (
     <View style={styles.sectionContainer}>
@@ -53,23 +52,16 @@ const Section = ({ children, title }) => {
   );
 };
 
-const App = () => {
+const App: () => Node = () => {
   const isDarkMode = useColorScheme() === 'dark';
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
-  const numeros = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-
   return (
     <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={'dark-content'} />
-      <FlatList
-        keyExtractor={(item) => item }
-        data={numeros}
-        renderItem={({ item }) => <Text>{item}</Text>}
-      />
+      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         style={backgroundStyle}>
@@ -79,7 +71,7 @@ const App = () => {
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
           <Section title="Step One">
-            Editar <Text style={styles.highlight}>App.js</Text> to change this
+            Edit <Text style={styles.highlight}>App.js</Text> to change this
             screen and then come back to see your edits.
           </Section>
           <Section title="See Your Changes">
