@@ -22,7 +22,7 @@ Para entregar la tarea, suban el screenshot del componente. No es necesario que 
 
 Les puedo dejar una ayuda para que puedan visualizar como formar el componente:
 
-[Ayuda]()
+[--> Ayuda <--](https://github.com/JuliusEscalab/react_native_gen2_23_3_21/blob/master/tareas/recursos/excercise1_solution.png)
 
 Cualquier duda me comentan por slack!
 
