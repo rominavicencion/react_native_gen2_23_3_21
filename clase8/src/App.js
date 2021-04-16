@@ -7,20 +7,19 @@
  */
 
 import React from 'react';
-import {
-  SafeAreaView,
-  StatusBar,
-} from 'react-native';
+import {SafeAreaView, StatusBar} from 'react-native';
 import Home from './screen/Home';
 import FlashMessage from 'react-native-flash-message';
+import RootNavigation from './routes/Root';
 
 const App = () => {
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: '#34495e' }}>
+    <>
       <FlashMessage position="top" canRegisterAsDefault />
       <StatusBar barStyle={'dark-content'} />
-      <Home />
-    </SafeAreaView>
+      {/* <Home /> */}
+      <RootNavigation />
+    </>
   );
 };
 
