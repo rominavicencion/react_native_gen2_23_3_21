@@ -1,5 +1,6 @@
 import React from 'react';
 import {View, Text, StyleSheet, Button} from 'react-native';
+import Header from '../components/Header';
 import colors from '../config/colors';
 
 const styles = StyleSheet.create({
@@ -19,6 +20,7 @@ const styles = StyleSheet.create({
 const Screen1 = ({navigation}) => {
   return (
     <View style={styles.container}>
+      <Header />
       <Text style={styles.text}>Screen 1</Text>
       <Button
         color={colors.white}
