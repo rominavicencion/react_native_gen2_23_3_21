@@ -19,10 +19,14 @@ const Input = ({
   onChangeText = () => {},
   autoCapitalize,
   autoCorrect,
+  placeholderTextColor = 'gray',
+  style,
 }) => (
   <View style={styles.container}>
     <TextInput
+      style={style}
       placeholder={placeholder}
+      placeholderTextColor={placeholderTextColor}
       value={value}
       autoCorrect={autoCorrect}
       autoCapitalize={autoCapitalize}

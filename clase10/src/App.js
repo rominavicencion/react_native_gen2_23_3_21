@@ -6,13 +6,19 @@
  * @flow strict-local
  */
 
-import React from 'react';
-import {SafeAreaView, StatusBar} from 'react-native';
-import Home from './screen/Home';
+import React, {useEffect} from 'react';
+import {StatusBar} from 'react-native';
 import FlashMessage from 'react-native-flash-message';
 import RootNavigation from './routes/Root';
+import SplashScreen from 'react-native-splash-screen';
 
 const App = () => {
+  useEffect(() => {
+    setTimeout(() => {
+      SplashScreen.hide();
+    }, 3000);
+  }, []);
+
   return (
     <>
       <FlashMessage position="top" canRegisterAsDefault />

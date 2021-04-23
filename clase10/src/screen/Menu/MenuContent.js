@@ -26,6 +26,11 @@ const MenuContent = ({navigation}) => {
         title="Navegar a Use Callback"
         onPress={() => navigation.navigate('UseCallback')}
       />
+      <Button
+        color={colors.darkBlue}
+        title="Navegar a Use Memo"
+        onPress={() => navigation.navigate('UseMemo')}
+      />
     </View>
   );
 };
