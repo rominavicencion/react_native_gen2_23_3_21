@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import React, {useCallback, useEffect, useState} from 'react';
 import {
+  Button,
   FlatList,
   SafeAreaView,
   StyleSheet,
@@ -15,6 +16,8 @@ import * as Animatable from 'react-native-animatable';
 import Input from '../components/Input';
 import OverlaySpinner from 'react-native-loading-spinner-overlay';
 import {useNavigation} from '@react-navigation/core';
+import {connect} from 'react-redux';
+import {logout} from '../redux/actions';
 
 const styles = StyleSheet.create({
   container: {
@@ -43,7 +46,7 @@ const styles = StyleSheet.create({
 
 const countryAsyncStorageKey = 'countries';
 
-const CountriesComponent = () => {
+const CountriesComponent = ({logout}) => {
   const [countries, updateCountries] = useState([]);
   const [searchCountry, updateSearchCountry] = useState([]);
   const [isLoading, updateIsLoading] = useState(false);
@@ -122,6 +125,7 @@ const CountriesComponent = () => {
         textStyle={styles.overlayStyle}
         visible={isLoading}
       />
+      <Button onPress={() => logout()} title="Log Out" />
       <Text style={styles.title}>Selecciona un país</Text>
       <View>
         <Input
@@ -164,4 +168,10 @@ const CountriesComponent = () => {
   );
 };
 
-export default CountriesComponent;
+const mapDispatchToProps = dispatch => {
+  return {
+    logout: () => dispatch(logout()),
+  };
+};
+
+export default connect(() => ({}), mapDispatchToProps)(CountriesComponent);

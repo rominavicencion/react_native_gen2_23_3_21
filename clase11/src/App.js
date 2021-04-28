@@ -11,6 +11,8 @@ import {StatusBar} from 'react-native';
 import FlashMessage from 'react-native-flash-message';
 import RootNavigation from './routes/Root';
 import SplashScreen from 'react-native-splash-screen';
+import {Provider} from 'react-redux';
+import store from './redux/store';
 
 const App = () => {
   useEffect(() => {
@@ -24,7 +26,9 @@ const App = () => {
       <FlashMessage position="top" canRegisterAsDefault />
       <StatusBar barStyle={'dark-content'} />
       {/* <Home /> */}
-      <RootNavigation />
+      <Provider store={store}>
+        <RootNavigation />
+      </Provider>
     </>
   );
 };
