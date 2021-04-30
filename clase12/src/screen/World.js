@@ -8,12 +8,14 @@ import TotalData from '../components/TotalData';
 import LineChartData from '../components/LineChart';
 import colors from '../config/colors';
 import {constants} from '../config/constants';
+import {CountryContext} from '../contexts/CountryHandler';
+import {ThemeContext, useTheme} from '../contexts/Theme';
 
 const styles = StyleSheet.create({
   container: {backgroundColor: colors.darkBlue, flex: 1},
 });
 
-export default class World extends Component {
+class World extends Component {
   constructor(props) {
     super(props);
 
@@ -56,9 +58,11 @@ export default class World extends Component {
 
   render() {
     const {totalConfirmed, totalDeaths, totalRecovered} = this.state;
-
+    const {
+      mainTheme: {backgroundColor},
+    } = this.props;
     return (
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView style={[styles.container, {backgroundColor}]}>
         <Button title="Obtener datos mundiales" onPress={this.fetchWorldData} />
 
         <TotalData
@@ -70,3 +74,11 @@ export default class World extends Component {
     );
   }
 }
+
+const WorldHook = () => {
+  const {mainTheme} = useTheme();
+
+  return <World mainTheme={mainTheme} />;
+};
+
+export default WorldHook;

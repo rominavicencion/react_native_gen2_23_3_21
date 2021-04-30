@@ -13,6 +13,8 @@ import RootNavigation from './routes/Root';
 import SplashScreen from 'react-native-splash-screen';
 import {Provider} from 'react-redux';
 import store from './redux/store';
+import CountryHandler from './contexts/CountryHandler';
+import Theme from './contexts/Theme';
 
 const App = () => {
   useEffect(() => {
@@ -27,7 +29,11 @@ const App = () => {
       <StatusBar barStyle={'dark-content'} />
       {/* <Home /> */}
       <Provider store={store}>
-        <RootNavigation />
+        <CountryHandler>
+          <Theme>
+            <RootNavigation />
+          </Theme>
+        </CountryHandler>
       </Provider>
     </>
   );

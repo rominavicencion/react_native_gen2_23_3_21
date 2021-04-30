@@ -104,7 +104,6 @@
 				84E8C4F274EEB08578AC87DA /* Pods-clase12-clase12Tests.debug.xcconfig */,
 				BC0C32C25490A80B1759639B /* Pods-clase12-clase12Tests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};

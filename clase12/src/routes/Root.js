@@ -17,7 +17,10 @@ const RootNavigation = ({isValidLogin}) => (
         <RootStack.Screen name="LoginNavigator" component={LoginNavigator} />
       ) : (
         <>
-          <RootStack.Screen name="HomeNavigator" component={HomeNavigation} />
+          <RootStack.Screen
+            name="BottomTabNavigator"
+            component={BottomNavigation}
+          />
           <RootStack.Screen name="MenuLateral" component={DrawerNavigator} />
         </>
       )}

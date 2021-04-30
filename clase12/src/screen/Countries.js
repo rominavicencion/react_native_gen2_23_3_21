@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState, useContext} from 'react';
 import {
   Button,
   FlatList,
@@ -18,6 +18,8 @@ import OverlaySpinner from 'react-native-loading-spinner-overlay';
 import {useNavigation} from '@react-navigation/core';
 import {connect} from 'react-redux';
 import {logout} from '../redux/actions';
+import {CountryContext} from '../contexts/CountryHandler';
+import {useTheme} from '../contexts/Theme';
 
 const styles = StyleSheet.create({
   container: {
@@ -49,8 +51,13 @@ const countryAsyncStorageKey = 'countries';
 const CountriesComponent = ({logout}) => {
   const [countries, updateCountries] = useState([]);
   const [searchCountry, updateSearchCountry] = useState([]);
-  const [isLoading, updateIsLoading] = useState(false);
   const navigation = useNavigation();
+  const {states, isLoading, fetchDataByCountry} = useContext(CountryContext);
+
+  const {
+    mainTheme: {backgroundColor, color},
+    fontSize,
+  } = useTheme();
 
   const getFromStorage = async () => {
     const savedData = JSON.parse(
@@ -79,25 +86,6 @@ const CountriesComponent = ({logout}) => {
     }
   };
 
-  const fetchDataByCountry = async (countryName, countrySlug) => {
-    updateIsLoading(true);
-    try {
-      const {data, status} = await axios.get(
-        `https://api.covid19api.com/country/${countrySlug}`,
-      );
-
-      if (status === 200) {
-        navigation.navigate('Home', {countryName, data});
-        updateIsLoading(false);
-        return;
-      }
-
-      updateIsLoading(false);
-    } catch {
-      updateIsLoading(false);
-    }
-  };
-
   const filterCountries = useCallback(
     searchText => {
       if (searchText) {
@@ -118,7 +106,7 @@ const CountriesComponent = ({logout}) => {
   }, []);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container, {backgroundColor}]}>
       <OverlaySpinner
         color={colors.white}
         textContent="Cargando información..."
@@ -126,12 +114,13 @@ const CountriesComponent = ({logout}) => {
         visible={isLoading}
       />
       <Button onPress={() => logout()} title="Log Out" />
-      <Text style={styles.title}>Selecciona un país</Text>
+      <Button onPress={() => console.log({states})} title="States" />
+      <Text style={[styles.title, {color}]}>Selecciona un país</Text>
       <View>
         <Input
           placeholder="Buscar país..."
-          placeholderTextColor={colors.darkBlue}
-          style={{color: colors.darkBlue}}
+          placeholderTextColor={color}
+          style={{color}}
           onChangeText={filterCountries}
         />
       </View>
@@ -156,8 +145,13 @@ const CountriesComponent = ({logout}) => {
           return (
             <TouchableOpacity
               style={styles.countryContainer}
-              onPress={() => fetchDataByCountry(Country, Slug)}>
-              <Animatable.Text style={styles.countryText} animation={fadeIn}>
+              onPress={() => {
+                fetchDataByCountry(Country, Slug);
+                navigation.navigate('Home');
+              }}>
+              <Animatable.Text
+                style={[styles.countryText, {color, fontSize}]}
+                animation={fadeIn}>
                 {Country}
               </Animatable.Text>
             </TouchableOpacity>
