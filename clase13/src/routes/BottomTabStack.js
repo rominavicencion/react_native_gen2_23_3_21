@@ -8,9 +8,10 @@ import Fontisto from 'react-native-vector-icons/Fontisto';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {StyleSheet, View} from 'react-native';
 import colors from '../config/colors';
-import Countries from '../screen/Countries';
 import Menu from '../screen/Menu';
 import {useTheme} from '../contexts/Theme';
+import Profile from '../screen/Photo/Profile';
+import ProfileNavigator from './PhotoStack';
 
 const styles = StyleSheet.create({
   icon: {
@@ -30,8 +31,8 @@ const BottomNavigation = () => {
     <BottomTabs.Navigator
       tabBarOptions={{
         showLabel: false,
-        activeTintColor: colors.green,
-        inactiveTintColor: colors.red,
+        activeTintColor: colors.gray,
+        inactiveTintColor: colors.lightGray,
         style: {
           backgroundColor,
         },
@@ -61,6 +62,21 @@ const BottomNavigation = () => {
             return (
               <View style={styles.icon}>
                 <Fontisto name="world" color={color} size={iconSize} />
+              </View>
+            );
+          },
+        }}
+      />
+      <BottomTabs.Screen
+        name="Profile"
+        component={ProfileNavigator}
+        options={{
+          tabBarIcon: ({color, focused}) => {
+            Fontisto.loadFont();
+            const iconSize = focused ? 27 : 20;
+            return (
+              <View style={styles.icon}>
+                <Fontisto name="user-secret" color={color} size={iconSize} />
               </View>
             );
           },

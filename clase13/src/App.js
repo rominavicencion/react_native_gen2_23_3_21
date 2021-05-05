@@ -15,6 +15,7 @@ import {Provider} from 'react-redux';
 import store from './redux/store';
 import CountryHandler from './contexts/CountryHandler';
 import Theme from './contexts/Theme';
+import UserHandler from './contexts/UserHandler';
 
 const App = () => {
   useEffect(() => {
@@ -31,7 +32,9 @@ const App = () => {
       <Provider store={store}>
         <CountryHandler>
           <Theme>
-            <RootNavigation />
+            <UserHandler>
+              <RootNavigation />
+            </UserHandler>
           </Theme>
         </CountryHandler>
       </Provider>

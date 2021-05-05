@@ -1,15 +1,18 @@
 import React from 'react';
-import {Button, StyleSheet, Text, View, Switch} from 'react-native';
+import {Button, StyleSheet, Text, View, Switch, Image} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {connect} from 'react-redux';
 import colors from '../config/colors';
 import {useTheme} from '../contexts/Theme';
+import {useUserInformation} from '../contexts/UserHandler';
 import {logout} from '../redux/actions';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.white,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   title: {
     fontSize: 30,
@@ -33,6 +36,21 @@ const Menu = ({logout}) => {
     fontSize,
     fontSizeChange,
   } = useTheme();
+
+  const {photo, name, email} = useUserInformation();
+
+  const userImage = photo ? (
+    <>
+      <Image
+        style={{height: 200, width: 200, borderRadius: 70}}
+        source={{uri: photo}}
+        resizeMode="contain"
+      />
+      <Text>{name}</Text>
+      <Text>{email}</Text>
+    </>
+  ) : null;
+
   return (
     <View
       style={[
@@ -40,7 +58,7 @@ const Menu = ({logout}) => {
         {paddingTop: insets.top, backgroundColor: mainTheme.backgroundColor},
       ]}>
       <Text style={[styles.title, {color: mainTheme.color}]}>Menu</Text>
-
+      {userImage}
       <View style={styles.buttons}>
         <Switch
           style={{marginBottom: 50}}
