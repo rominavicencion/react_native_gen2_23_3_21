@@ -1,5 +1,5 @@
-import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import React from 'react';
+import {View, Text, StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   box: {
@@ -15,14 +15,13 @@ const styles = StyleSheet.create({
   },
 });
 
-const Box = ({ totalName, totalValue, color = 'black' }) => {
+const Box = ({totalName, totalValue, color = 'black'}) => {
   return (
-    <View style={styles.box}>
-      <Text style={[styles.totalText, { color }]}>{totalValue}</Text>
-      <Text style={[styles.totalText, { color }]}>{totalName}</Text>
+    <View testID="box-container" style={styles.box}>
+      <Text style={[styles.totalText, {color}]}>{totalValue}</Text>
+      <Text style={[styles.totalText, {color}]}>{totalName}</Text>
     </View>
   );
 };
 
 export default Box;
-

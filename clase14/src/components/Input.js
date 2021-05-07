@@ -24,6 +24,7 @@ const Input = ({
 }) => (
   <View style={styles.container}>
     <TextInput
+      testID="text-input"
       style={style}
       placeholder={placeholder}
       placeholderTextColor={placeholderTextColor}
