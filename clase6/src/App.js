@@ -14,6 +14,7 @@ import {
 } from 'react-native';
 import Home from './screens/Home';
 import movies from './lib/movies.json'
+import genreColors from './lib/genreColors.json'
 
 const styles = StyleSheet.create({
   container: {
@@ -25,7 +26,7 @@ const App = () => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle={'dark-content'} />
-      <Home movies={movies} />
+      <Home movies={movies} genreColors={genreColors} />
     </SafeAreaView>
   );
 };

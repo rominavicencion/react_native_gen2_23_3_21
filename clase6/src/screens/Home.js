@@ -15,10 +15,10 @@ import MoviesList from '../components/Movies/MoviesList';
 //   }
 // }
 
-const Home = ({ movies = [] }) => (
+const Home = ({ movies = [], genreColors = [] }) => (
   <>
     <Header title="La Cartelera" />
-    <MoviesList movies={movies} />
+    <MoviesList movies={movies} genreColors={genreColors} />
   </>
 );
 

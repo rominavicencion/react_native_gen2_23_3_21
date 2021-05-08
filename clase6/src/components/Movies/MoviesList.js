@@ -56,6 +56,7 @@ export default class MoviesList extends PureComponent {
 
   render() {
     const { modalActive, moviesGenres, movies } = this.state;
+    const { genreColors } = this.props;
 
     return (
       <>
@@ -72,6 +73,8 @@ export default class MoviesList extends PureComponent {
               imdbRating,
               title,
               actors,
+              storyline,
+              genres,
             }
           }) => {
             return (
@@ -81,6 +84,9 @@ export default class MoviesList extends PureComponent {
                 year={year}
                 imdbRating={imdbRating}
                 actors={actors}
+                description={storyline}
+                genres={genres}
+                genreColors={genreColors}
               />
             );
           }}
@@ -94,6 +100,7 @@ export default class MoviesList extends PureComponent {
         >
           <Filters
             moviesGenres={moviesGenres}
+            genreColors={genreColors}
             onPress={this.applyFilter}
           />
           <Button title="Cerrar Modal" onPress={this.toggleModal} />

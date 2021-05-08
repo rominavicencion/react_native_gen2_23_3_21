@@ -9,7 +9,9 @@ import {
 import Rating from '../Rating';
 import ActorsList from './ActorsList';
 import MovieCardImage from './MovieCardImage';
+import MovieDescription from './MovieDescription';
 import MovieFullscreenImage from './MovieFullscreenImage';
+import MovieGenres from './MovieGenres';
 
 const styles = StyleSheet.create({
   container: {
@@ -59,6 +61,7 @@ export default class MovieCard extends Component {
       starRating: 1,
       like: false,
       showFullscreenImage: false,
+      showDescription: false,
     };
   }
 
@@ -68,13 +71,16 @@ export default class MovieCard extends Component {
 
   toggleFullscreen = () => this.setState(({ showFullscreenImage }) => ({ showFullscreenImage: !showFullscreenImage }));
 
+  toggleDescription = () => this.setState(({ showDescription }) => ({ showDescription: !showDescription }));
+
   render() {
-    const { posterurl, title, year, imdbRating, actors } = this.props;
+    const { posterurl, title, year, imdbRating, actors, description, genreColors, genres } = this.props;
     const { showFullscreenImage,
       validImage,
       isLoading,
       starRating,
       like,
+      showDescription,
     } = this.state;
 
     return (
@@ -116,6 +122,14 @@ export default class MovieCard extends Component {
             {imdbRating}
           </Text>
         </View>
+        <MovieDescription 
+          onPress={this.toggleDescription}
+          description={description}
+          showDescription={showDescription} 
+        />
+
+        <MovieGenres genres={genres} genreColors={genreColors} pressable={false} />
+
         <ActorsList actors={actors} />
       </View>
     );
