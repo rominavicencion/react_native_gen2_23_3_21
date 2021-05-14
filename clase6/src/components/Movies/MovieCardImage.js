@@ -16,12 +16,12 @@ const MovieCardImage = ({
   posterurl,
   onError = () => { },
   onLoadEnd = () => { },
-  onLongPress = () => { },
+  onPress = () => { },
 }) => {
   // puede ir código
   return (
     <TouchableHighlight
-      onLongPress={onLongPress}
+      onPress={onPress}
       underlayColor="transparent"
     >
       <Image

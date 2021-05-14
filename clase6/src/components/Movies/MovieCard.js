@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import { useNavigation } from '@react-navigation/core';
+import React, { Component, useState } from 'react';
 import {
   Text,
   StyleSheet,
@@ -51,87 +52,84 @@ const styles = StyleSheet.create({
   }
 });
 
-export default class MovieCard extends Component {
-  constructor(props) {
-    super(props)
+const MovieCard = ({ 
+  posterurl, 
+  title, 
+  year, 
+  imdbRating, 
+  actors, 
+  description, 
+  genreColors, 
+  genres 
+}) => {
 
-    this.state = {
-      isLoading: true,
-      validImage: true,
-      starRating: 1,
-      like: false,
-      showFullscreenImage: false,
-      showDescription: false,
-    };
-  }
+  const navigation = useNavigation();
+  const [isLoading, setIsLoading] = useState(true);
+  const [validImage, setValidImage] = useState(true);
+  const [starRating, setStarRating] = useState(1);
+  const [like, setLike] = useState(false);
+  const [showFullscreenImage, setShowFullscreenImage] = useState(false);
+  const [showDescription, setShowDescription] = useState(false);
 
-  starRatingChange = starPosition => this.setState({ starRating: starPosition })
+  const starRatingChange = starPosition => setStarRating(starPosition)
 
-  toggleLike = () => this.setState(({ like }) => ({ like: !like }));
+  const toggleLike = () => setLike(!like);
 
-  toggleFullscreen = () => this.setState(({ showFullscreenImage }) => ({ showFullscreenImage: !showFullscreenImage }));
+  const toggleFullscreen = () => setShowFullscreenImage(!showFullscreenImage);
 
-  toggleDescription = () => this.setState(({ showDescription }) => ({ showDescription: !showDescription }));
+  const toggleDescription = () => setShowDescription(!showDescription);
 
-  render() {
-    const { posterurl, title, year, imdbRating, actors, description, genreColors, genres } = this.props;
-    const { showFullscreenImage,
-      validImage,
-      isLoading,
-      starRating,
-      like,
-      showDescription,
-    } = this.state;
-
-    return (
-      <View style={styles.container}>
-        { isLoading && <ActivityIndicator color="red" size="large" />}
-        { showFullscreenImage
-          && validImage
-          && <MovieFullscreenImage onPress={this.toggleFullscreen} source={{ uri: posterurl }} />
+  return (
+    <View style={styles.container}>
+      { isLoading && <ActivityIndicator color="red" size="large" />}
+      { 
+        // showFullscreenImage
+      //   && validImage
+      //   && <MovieFullscreenImage onPress={toggleFullscreen} source={{ uri: posterurl }} />
+      }
+      <MovieCardImage
+        validImage={validImage}
+        posterurl={posterurl}
+        onError={() => setValidImage(false)}
+        onLoadEnd={() => setIsLoading(false)}
+        // onLongPress={toggleFullscreen}
+        onPress={() => navigation.navigate('MovieDetail', { title, posterurl, description, validImage })}
+      />
+      {/* <Image
+        style={styles.image}
+        source={
+          validImage
+            ? { uri: posterurl }
+            : require('../../assets/no_image_available.jpg')
         }
-        <MovieCardImage
-          validImage={validImage}
-          posterurl={posterurl}
-          onError={() => this.setState({ validImage: false })}
-          onLoadEnd={() => this.setState({ isLoading: false })}
-          onLongPress={this.toggleFullscreen}
-        />
-        {/* <Image
-          style={styles.image}
-          source={
-            validImage
-              ? { uri: posterurl }
-              : require('../../assets/no_image_available.jpg')
-          }
-          onError={() => this.setState({ validImage: false })}
-          onLoadEnd={() => this.setState({ isLoading: false })}
-        /> */}
-        <View style={styles.likeRating}>
-          <Rating heart like={like} onRatingPress={this.toggleLike} />
-        </View>
-        <Text style={[styles.title, styles.textColor]}>{title}</Text>
-        <View style={styles.subtitle}>
-          <Text style={[styles.description, styles.textColor]}>{year}</Text>
-          <Rating
-            star
-            starRating={starRating}
-            onRatingPress={this.starRatingChange}
-          />
-          <Text style={[styles.description, styles.textColor, styles.bigFont]}>
-            {imdbRating}
-          </Text>
-        </View>
-        <MovieDescription 
-          onPress={this.toggleDescription}
-          description={description}
-          showDescription={showDescription} 
-        />
-
-        <MovieGenres genres={genres} genreColors={genreColors} pressable={false} />
-
-        <ActorsList actors={actors} />
+        onError={() => this.setState({ validImage: false })}
+        onLoadEnd={() => this.setState({ isLoading: false })}
+      /> */}
+      <View style={styles.likeRating}>
+        <Rating heart like={like} onRatingPress={toggleLike} />
       </View>
-    );
-  }
+      <Text style={[styles.title, styles.textColor]}>{title}</Text>
+      <View style={styles.subtitle}>
+        <Text style={[styles.description, styles.textColor]}>{year}</Text>
+        <Rating
+          star
+          starRating={starRating}
+          onRatingPress={starRatingChange}
+        />
+        <Text style={[styles.description, styles.textColor, styles.bigFont]}>
+          {imdbRating}
+        </Text>
+      </View>
+      <MovieDescription 
+        onPress={toggleDescription}
+        description={description}
+        showDescription={showDescription} 
+      />
+
+      <MovieGenres genres={genres} genreColors={genreColors} pressable={false} />
+
+      <ActorsList actors={actors} />
+    </View>
+  );
 }
+export default MovieCard;

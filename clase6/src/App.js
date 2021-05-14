@@ -6,15 +6,15 @@
  * @flow strict-local
  */
 
-import React from 'react';
+import React, { Fragment } from 'react';
 import {
   SafeAreaView,
   StatusBar,
   StyleSheet,
 } from 'react-native';
 import Home from './screens/Home';
-import movies from './lib/movies.json'
-import genreColors from './lib/genreColors.json'
+
+import RootNavigation from './routes/Root';
 
 const styles = StyleSheet.create({
   container: {
@@ -24,10 +24,11 @@ const styles = StyleSheet.create({
 
 const App = () => {
   return (
-    <SafeAreaView style={styles.container}>
+    <Fragment>
       <StatusBar barStyle={'dark-content'} />
-      <Home movies={movies} genreColors={genreColors} />
-    </SafeAreaView>
+      {/*<Home movies={movies} genreColors={genreColors} /> */}
+      <RootNavigation />
+    </Fragment>
   );
 };
 
